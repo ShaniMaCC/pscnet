@@ -1,0 +1,134 @@
+---
+title: Ioan
+layout: ./app/layout.ejs
+engine: ejs
+current: index
+---
+
+<nav class="mb-4">
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a href="#" class="nav-link border border-white text-black bg-secondary fs-3 px-4  active-ioan">借款申請</a>
+            <!-- js操控active -->
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link border border-white text-black bg-secondary fs-3 px-4">還款申請</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link border border-white text-black bg-secondary fs-3 px-4">退還擔保品</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link border border-white text-black bg-secondary fs-3 px-4">帳務查詢</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link border border-white text-black bg-secondary fs-3 px-4">借款維持率試算</a>
+        </li>
+    </ul>
+
+</nav>
+<main class="container">
+    <form>
+        <div class="row ">
+            <div class="offset-2 offset-sm-0 col-10 col-md-6 col-lg-5">
+                <div class="mb-2 row g-lg-5">
+                    <label for="user-accountInfo" class="col-sm-3 col-md-6 col-lg-3 col-form-label text-sm-end ">帳號</label>
+                    <div class="col-sm-8 col-md-6 col-lg-7">
+                        <input type="text" readonly class="form-control-plaintext" id="user-accountInfo" name="user-accountInfo">
+                    </div>
+                </div>
+            </div>
+            <div class="offset-2 offset-sm-0 col-10 col-md-6 col-lg-3">
+                <div class="mb-2 row">
+                    <label for="user-name"
+                        class="col-sm-3 col-md-6  col-form-label text-sm-end text-lg-start">姓名</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input type="text" readonly class="form-control-plaintext" id="user-name" name="user-name"
+                            >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row g-lg-5">
+            <div class="offset-2 offset-sm-0 col-10 col-sm-6 col-lg-3 ">
+                <div class="mb-2 row">
+                    <label for="a1" class="col-sm-6 col-form-label text-sm-end">融通額度</label>
+                    <div class="col-sm-6">
+                        <input type="text" readonly class="form-control-plaintext" id="a1" name="a1">
+                    </div>
+                </div>
+            </div>
+            <div class="offset-2 offset-sm-0 col-10 col-sm-6 col-lg-3">
+                <div class="mb-2 row">
+                    <label for="a2" class="col-sm-6 col-form-label text-sm-end">已借金額</label>
+                    <div class="col-sm-6">
+                        <input type="text" readonly class="form-control-plaintext" id="a2" name="a2">
+                    </div>
+                </div>
+            </div>
+            <div class="offset-2 offset-sm-0 col-10 col-sm-6 col-lg-3">
+                <div class="mb-2 row">
+                    <label for="a3" class="col-sm-6 col-form-label text-sm-end">可借金額</label>
+                    <div class="col-sm-6">
+                        <input type="text" readonly class="form-control-plaintext" id="a3" name="a3">
+                    </div>
+                </div>
+            </div>
+            <div class="offset-2 offset-sm-0 col-10 col-sm-6 col-lg-3">
+                <div class="mb-2 row">
+                    <label for="a4" class="col-sm-6 col-form-label text-sm-end">維持率</label>
+                    <div class="col-sm-6">
+                        <input type="text" readonly class="form-control-plaintext" id="a4" name="a4">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row g-lg-1 fs-5 mb-5">
+            <div class="offset-2 offset-sm-1  col-10 col-sm-6 offset-md-0 col-md-6 col-lg-4">
+                <div class="mb-2 row ge-lg-5">
+                    <label for="time" class="col-sm-4 col-md-6 col-lg-4 col-form-label text-sm-end ">查詢時間</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input type="text" readonly class="form-control-plaintext" id="time" name="time">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-2 col-10 ">
+                <div class="mb-2 row">
+                    <label for="ioanNum" class="col-4 col-sm-3 col-form-label text-center bg-success">借款金額</label>
+                    <div class="col-6 col-sm-5">
+                        <input type="text" class="form-control bg-success" id="ioanNum" name="ioanNum">
+                    </div>
+                    <p class="form-text offset-4 offset-sm-3 col-8">最低1萬，單筆上限50萬，單日上限200萬，最小單位為仟元</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="offset-2 col-10 ">
+                <div class="mb-2 row">
+                    <label for="ioanReason" class="col-4 col-sm-3 col-form-label text-center bg-success">借款目的</label>
+                    <select class="col-6 col-sm-5 col-form-select bg-success ms-3" id="ioanReason" name="ioanReason">
+                        <option value="投資上市櫃有價證券" selected>投資上市櫃有價證券</option>
+                        <option value="不動產交易">不動產交易</option>
+                        <option value="其他理財">其他理財</option>
+                        <option value="消費性支出">消費性支出</option>
+                        <option value="資金週轉">資金週轉</option>
+                        <option value="r6">其他目的<span>:請輸入<span></span></span>
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-auto offset-6">
+            <div>
+                <input type="button" value="清除" class="btn btn-light border-dark" id="ioan-btn-clean">
+            </div>
+            <div>
+                <input type="button" value="申請"class="btn btn-success" id="ioan-btn-submit">
+            </div>
+        </div>
+    </form>
+</main>
+    

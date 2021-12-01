@@ -1,0 +1,38 @@
+//@import '../helpers/variables';
+body{
+    position: relative;
+    font-family:$font-family-base;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+}
+img{
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    vertical-align: middle;
+    border-radius: 16px;
+}
+a{
+    text-decoration: none;
+    display: block;
+}
+i{
+    line-height: 1;
+}
+ul {
+    list-style: none;
+    margin-bottom: 0;
+    padding: 0;
+}
+*,*::before,*::after {
+    box-sizing: border-box;
+}
+.h1, .h2, .h3, .h4, .h5, .h6{
+    margin-bottom: 0;
+    font-weight: normal;
+}
+.material-icons-outlined{
+    vertical-align: bottom;
+    font-family: 'Material Icons';
+    font-style: normal;
+}

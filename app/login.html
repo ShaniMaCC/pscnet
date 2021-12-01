@@ -1,0 +1,21 @@
+---
+title: Login
+layout: ./app/layout.ejs
+engine: ejs
+current: index
+---
+
+<form class="text-center container">
+    <div class="userInfo-formgroup mb-4">
+        <h3 class="fw-bold mb-4">Account</h3>
+        <label for="user-account" class="mb-1 me-2">帳號</label>
+        <input type="text" id="user-account" name="user-account">
+    </div>
+    <div class="userInfo-formgroup mb-4">
+        <label for="user-password" class="mb-1 me-2">密碼</label>
+        <input type="password" id="user-password" name="user-password">
+    </div>
+
+    <input type="button" class="btn btn-success" value="登入" id="user-login">
+
+</form>
