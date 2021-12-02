@@ -192,8 +192,8 @@ if (window.location.pathname == '/ioan.html') {
 //表格內資料代入
 let s_ioanNum = localStorage.getItem('ioanNum');
 let s_ioanReason = localStorage.getItem('ioanReason');
-let acc_ioanNum = document.querySelectorAll('[name="ioanNum"]');
-let acc_ioanReason = document.getElementsByName('ioanReason');
+let acc_ioanNum = document.querySelectorAll('[name="acc-ioanNum"]');
+let acc_ioanReason = document.getElementsByName('acc-ioanReason');
 let acc_a5 = document.getElementsByName('a5');
 
 // console.log(acc_ioanNum);
