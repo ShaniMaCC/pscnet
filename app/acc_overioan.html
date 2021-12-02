@@ -1,0 +1,64 @@
+---
+title: OverIoan Account information
+layout: ./app/layout.ejs
+engine: ejs
+current: index
+---
+
+<main>
+    <section class="container">
+        <div class="card">
+            <div class="card-header bg-white d-flex justify-content-end">
+                <button type="button" class="btn-close" aria-label="Close"></button>
+            </div>
+            <div class=" card-body">
+                <h5 class="card-title">您申請的借款金額<span id="ioanNum-over"></span>元，要使用哪些庫存作為擔保品？</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center ">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col" colspan="3">可作為擔保品的庫存明細</th>
+                                <th scope="col" rowspan="2" class="align-middle bg-light-blue">融通成數</th>
+                                <th scope="col" rowspan="2" class="align-middle bg-secondary">擔保品張數</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">股票代號</th>
+                                <th scope="col">股票名稱</th>
+                                <th scope="col">張數</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stock-list">
+                            <tr>
+                                <td>2330</td>
+                                <td>台積電</td>
+                                <td>1</td>
+                                <td>60%</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="text-end bg-light-pink">可增加融通額度：<span></span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-success text-center overioan-btn-submit">下一步</a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+     // close accinfo
+     let accinfo_close = document.getElementsByClassName('btn-close');
+    // console.log(accinfo_close)
+    for (let i in accinfo_close) {
+        accinfo_close[i].onclick = () => {
+            accinfo_close[i].parentElement.parentElement.parentElement.classList.add('close-acc');
+        }
+    }
+</script>

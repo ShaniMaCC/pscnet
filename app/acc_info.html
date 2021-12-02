@@ -9,7 +9,7 @@ current: index
         <h3>一般帳戶</h3>
         <div class="card">
             <div class="card-header bg-white d-flex justify-content-end">
-                <button type="button" class="btn-close" id="acc1-btn-close" aria-label="Close"></button>
+                <button type="button" class="btn-close" aria-label="Close"></button>
             </div>
             <div class=" card-body">
                 <h5 class="card-title">請您確認以下申請資料</h5>
@@ -86,19 +86,19 @@ current: index
     // close accinfo
     let accinfo_close = document.getElementsByClassName('btn-close');
     // console.log(accinfo_close)
-    for( let i  in accinfo_close){
-        accinfo_close[i].onclick = ()=>{
+    for (let i in accinfo_close) {
+        accinfo_close[i].onclick = () => {
             accinfo_close[i].parentElement.parentElement.parentElement.classList.add('close-acc');
         }
     }
     //submit accinfo
     let accinfo_submit = document.getElementsByClassName('accinfo-btn-submit');
-    for (let index in accinfo_submit){
-        accinfo_submit[index].onclick = ()=>{
+    for (let index in accinfo_submit) {
+        accinfo_submit[index].onclick = () => {
             localStorage.clear();
-            window.location.href ='index.html';
-            
+            window.location.href = 'index.html';
+
         }
     }
-
+  
 </script>

@@ -27,7 +27,24 @@
 //   userAccData = response.data.data;
 //   render();
 // })
+// function ajaxCallJsonp1() {
 
+//   $("#msg").html('新增中...');
+
+//   $.ajax({//http://localhost:8080/SecuredLoanWeb/loanservlet ?username=05067113test&password=12345&dstaddr=0937205071&smbody=haha
+//     url: 'http://sloan.syspower.com.tw/SecuredLoan/base_data',
+//     type: 'post',
+//     async: false,
+//     data: { kind: 'base_data', custID: '4010-091000' },
+//     success: function (rtn) {
+//       console.log(' success ' + JSON.stringify(rtn));
+//     },
+//     error: function (rtn) {
+//       console.log('errors' + JSON.stringify(rtn));
+//     }
+//   })
+
+// }
 let userData = [
   {
     a1: "2000000",
@@ -56,15 +73,37 @@ let userAccData = [
     c1name: "中國信託銀行西松分行",
     c1: "822-1234567890",
     c2: "822-734061234567"
-    },
-    {
-      custID: "4010-091001",
-      c1name: "中國信託銀行三重分行",
-      c1: "822-1234567888",
-      c2: "822-734061234588"
-      }
+  },
+  {
+    custID: "4010-091001",
+    c1name: "中國信託銀行三重分行",
+    c1: "822-1234567888",
+    c2: "822-734061234588"
+  }
 
 ];
+
+let userStockData = [
+  {
+    num: 2,
+    stocks: [
+      {
+        ableLoanQty: "300000",
+        custID: "4010-091000",
+        transDate: "20211126",
+        stockID: "2330"
+      },
+      {
+        ableLoanQty: "300000",
+        custID: "4010-091000",
+        transDate: "20211126",
+        stockID: "2885"
+      }
+    ]
+  }
+
+]
+
 
 //登入
 let login_btn = document.getElementById('user-login');
@@ -94,8 +133,8 @@ function userLogin() {
     alert('請重新輸入')
   }
 }
+//透過localstorage存的帳號找到是userData哪筆資料(index)
 let login_user = localStorage.getItem("userid");
-
 let user_index = userData.findIndex(x => x.custID === login_user)
 // console.log(user_index);
 //借款申請使用者資料代入
@@ -165,7 +204,8 @@ if (window.location.pathname == '/ioan.html') {
     if (data_a1 - data_a2 >= data_ioanNum && data_ioanNum >= 10000) {
       window.location.href = 'acc_info.html';
     } else if (data_a1 - data_a2 < data_ioanNum) {
-      window.location.href = 'index.html';
+      // alert('超出可借金額');
+      window.location.href = 'acc_overioan.html';
     } else {
       alert('wrong')
       ioanNum.value = '';
@@ -185,6 +225,7 @@ let acc_a5 = document.getElementsByName('a5');
 // console.log(acc_ioanReason);
 // console.log(acc_a5);
 // acc_ioanNum.textContent = s_ioanNum;
+
 for (let iN of acc_ioanNum) {
   iN.textContent = s_ioanNum;
 }
@@ -192,6 +233,27 @@ for (let iR of acc_ioanReason) {
   iR.textContent = s_ioanReason;
 }
 for (let a5 of acc_a5) {
-  a5.textContent = userData[user_index].a5;
+  a5.textContent = `${userData[user_index].a5}%`;
 }
 
+//帳戶資料代入
+let acc_index = userAccData.findIndex(x => x.custID === login_user)
+// console.log(acc_index);
+
+if (window.location.pathname == '/acc_info.html') {
+  let user_acc1 = document.getElementById('user-acc1');
+  let user_acc2 = document.getElementById('user-acc2');
+
+  user_acc1.textContent = userAccData[acc_index].c1;
+  user_acc2.textContent = userAccData[acc_index].c2;
+
+}
+
+
+
+let over_ioanNum = document.getElementById('ioanNum-over');
+// console.log(over_ioanNum.innerHTML);
+if (window.location.pathname == '/acc_overioan.html') {
+  over_ioanNum.innerText = s_ioanNum;
+
+}
