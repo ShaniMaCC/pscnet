@@ -5,11 +5,11 @@ engine: ejs
 current: index
 ---
 <main>
-    <section class="container mb-5 acc-close">
+    <section class="container mb-5">
         <h3>一般帳戶</h3>
-        <div class="card" >
+        <div class="card">
             <div class="card-header bg-white d-flex justify-content-end">
-                <button type="button" class="btn-close" id="acc1-btn-close" aria-label="Close" ></button>
+                <button type="button" class="btn-close" id="acc1-btn-close" aria-label="Close"></button>
             </div>
             <div class=" card-body">
                 <h5 class="card-title">請您確認以下申請資料</h5>
@@ -25,7 +25,8 @@ current: index
                         </thead>
                         <tbody>
                             <tr>
-                                <td name="acc-ioanNum"></th>
+                                <td name="acc-ioanNum">
+                                    </th>
                                 <td name="acc-ioanReason"></td>
                                 <td name="a5"></td>
                                 <td>2022/1/21</td>
@@ -36,56 +37,68 @@ current: index
                 <p class="card-text">借款結果請至借還款查詢，款項將撥至您的交割帳戶：<span id="user-acc1"></span></p>
                 <div class="text-center">
                     <a href="./ioan.html" class="btn btn-light border-dark text-center">回上一步</a>
-                    <a href="#" class="btn btn-success text-center">確認送出</a>
+                    <button class="btn btn-success text-center accinfo-btn-submit">確認送出</a>
 
                 </div>
             </div>
         </div>
     </section>
-    <section class="container acc-close">
+    <section class="container">
         <h3>分帳戶</h3>
-        <div class="card" >
+        <div class="card">
             <div class="card-header bg-white d-flex justify-content-end">
-                <button type="button" class="btn-close"  id="acc2-btn-close" aria-label="Close" ></button>
+                <button type="button" class="btn-close" id="acc2-btn-close" aria-label="Close"></button>
             </div>
             <div class=" card-body">
-            <h5 class="card-title">請您確認以下申請資料</h5>
-            <div class="table-responsive">
-                <table class="table table-bordered text-center">
-                    <thead class="bg-primary">
-                        <tr>
-                            <th scope="col">借款金額</th>
-                            <th scope="col">借款目的</th>
-                            <th scope="col">適用利率</th>
-                            <th scope="col">借款到期日</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td name="acc-ioanNum"></th>
-                            <td name="acc-ioanReason"></td>
-                            <td name="a5"></td>
-                            <td>2022/1/21</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h5 class="card-title">請您確認以下申請資料</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">借款金額</th>
+                                <th scope="col">借款目的</th>
+                                <th scope="col">適用利率</th>
+                                <th scope="col">借款到期日</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td name="acc-ioanNum">
+                                    </th>
+                                <td name="acc-ioanReason"></td>
+                                <td name="a5"></td>
+                                <td>2022/1/21</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="card-text">借款結果請至借還款查詢，款項將撥至您的分帳戶：<span id="user-acc2"></span></p>
+                <div class="text-center">
+                    <a href="./ioan.html" class="btn btn-light border-dark text-center">回上一步</a>
+                    <button class="btn btn-success text-center accinfo-btn-submit">確認送出</a>
+                </div>
             </div>
-            <p class="card-text">借款結果請至借還款查詢，款項將撥至您的分帳戶：<span id="user-acc2"></span></p>
-            <div class="text-center">
-                <a href="./ioan.html" class="btn btn-light border-dark text-center">回上一步</a>
-                <a href="#" class="btn btn-success text-center">確認送出</a>
-
-            </div>
-        </div>
         </div>
     </section>
 </main>
 
 <script>
-//     let acc1_btn_close = document.getElementById('acc1-btn-close');
-//     acc1_btn_close.addEventListener('click', function(){
-//   console.log('fff')
+    // close accinfo
+    let accinfo_close = document.getElementsByClassName('btn-close');
+    // console.log(accinfo_close)
+    for( let i  in accinfo_close){
+        accinfo_close[i].onclick = ()=>{
+            accinfo_close[i].parentElement.parentElement.parentElement.classList.add('close-acc');
+        }
+    }
+    //submit accinfo
+    let accinfo_submit = document.getElementsByClassName('accinfo-btn-submit');
+    for (let index in accinfo_submit){
+        accinfo_submit[index].onclick = ()=>{
+            localStorage.clear();
+            window.location.href ='index.html';
+            
+        }
+    }
 
-//   return false;
-// });
 </script>

@@ -2,9 +2,9 @@
 // import {acc1_btn_close} from '../js/test';
 
 
-// const userDataUrl ='https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=30&$format=JSON';
+// const userData ='https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=30&$format=JSON';
 
-// axios.get(userDataUrl).then(function(response){
+// axios.get(userData).then(function(response){
 
 //   console.log(response.data);
 //   userData = response.data.data;
@@ -17,6 +17,16 @@
 //   console.error(err);
 // }
 
+
+
+// const userAccData ='http://sloan.syspower.com.tw/SecuredLoan/base_data?kind=acc_data&custID=4010-091000';
+
+// axios.get(userAccData).then(function(response){
+
+//   console.log(response.data);
+//   userAccData = response.data.data;
+//   render();
+// })
 
 let userData = [
   {
@@ -40,32 +50,23 @@ let userData = [
 
 ];
 
+let userAccData = [
+  {
+    custID: "4010-091000",
+    c1name: "中國信託銀行西松分行",
+    c1: "822-1234567890",
+    c2: "822-734061234567"
+    },
+    {
+      custID: "4010-091001",
+      c1name: "中國信託銀行三重分行",
+      c1: "822-1234567888",
+      c2: "822-734061234588"
+      }
+
+];
+
 //登入
-// let login_btn = document.getElementById('user-login');
-// if(login_btn){
-//   login_btn.addEventListener('click', userLogin ,false);
-// }
-
-// function userLogin  (event) {
-//   let userAcc = document.getElementById('user-account');
-//   let userPsd = document.getElementById('user-password');
-//   let userId = userData.some(x => x.custID == userAcc.value);
-
-//   // console.log(userId);
-//   if (userId){
-//     if (userPsd.value.length >=4){
-//       window.location.href = 'ioan.html';
-//     }else{
-//       userPsd.value="";
-//       alert('密碼重新輸入')
-//     }
-//   }else{
-//     userAcc.value="";
-//     userPsd.value="";
-//     alert('請重新輸入')
-//   }
-
-// }
 let login_btn = document.getElementById('user-login');
 if (login_btn) {
   login_btn.addEventListener('click', userLogin, false);
@@ -74,6 +75,7 @@ function userLogin() {
   let userAcc = document.getElementById('user-account');
   let userPsd = document.getElementById('user-password');
   let userId = userData.findIndex(x => x.custID === userAcc.value);
+  //   let userId = userData.some(x => x.custID == userAcc.value);
 
   if (userId >= 0) {
     let user = userData[userId].custID;
@@ -94,11 +96,11 @@ function userLogin() {
 }
 let login_user = localStorage.getItem("userid");
 
+let user_index = userData.findIndex(x => x.custID === login_user)
+// console.log(user_index);
 //借款申請使用者資料代入
 if (window.location.pathname == '/ioan.html') {
 
-  let user_index = userData.findIndex(x => x.custID === login_user)
-  // console.log(user_index);
   let userAccInfo = document.getElementById('user-accountInfo');
   let userName = document.getElementById('user-name');
   let user_a1 = document.getElementById('a1');
@@ -171,24 +173,7 @@ if (window.location.pathname == '/ioan.html') {
   }
 
 }
-//按鈕關閉acc1,acc2
-// let acc1_btn_close = document.getElementById('acc1-btn-close');
-// let acc2_btn_close = document.getElementById('acc2-btn-close');
-// console.log(acc1_btn_close)
-// function close_accInfo () {
-//   let acc1_info =document.getElementById('acc1-info');
-//   let acc2_info =document.getElementById('acc2-info');
-//   // console.log(this.currentTarget);
-//   console.log(this.target);
 
-//   // if(e.target == acc1_btn_close){acc1_info.style.display ='none'}; 
-//   // if(e.target == acc2_btn_close){acc2_info.style.display ='none'}; 
-// }
-// acc1_btn_close.addEventListener('click', function(){
-//   console.log('fff')
-
-//   // return false;
-// });
 //表格內資料代入
 let s_ioanNum = localStorage.getItem('ioanNum');
 let s_ioanReason = localStorage.getItem('ioanReason');
@@ -206,10 +191,7 @@ for (let iN of acc_ioanNum) {
 for (let iR of acc_ioanReason) {
   iR.textContent = s_ioanReason;
 }
+for (let a5 of acc_a5) {
+  a5.textContent = userData[user_index].a5;
+}
 
-let user_index = userData.findIndex(x => x.custID === login_user);
-
-let acc1_btn_close = document.getElementById('acc1-btn-close');
-acc1_btn_close.addEventListener('click', function () {
-  console.log('fff')
-});
