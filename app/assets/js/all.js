@@ -83,6 +83,66 @@ let userAccData = [
 
 ];
 
+let stockData = [
+  {
+    loanTOValue: "60",
+    pettionUsedMoney: "0",
+    stockName: "南　亞",
+    ableLoanQty: "0",
+    is50: true,
+    pettionUsedQty: "0",
+    riskRatio: "",
+    num: "",
+    tradeUnit: "1000",
+    riskQty: "999",
+    lastPrice: "85.60",
+    stockID: "1303"
+  },
+  {
+    loanTOValue: "60",
+    pettionUsedMoney: "0",
+    stockName: "台積電",
+    ableLoanQty: "0",
+    is50: true,
+    pettionUsedQty: "0",
+    riskRatio: "",
+    num: "",
+    tradeUnit: "1000",
+    riskQty: "999",
+    lastPrice: "612.00",
+    stockID: "2330"
+  },
+  {
+    loanTOValue: "60",
+    pettionUsedMoney: "0",
+    stockName: "泰茂",
+    ableLoanQty: "500",
+    is50: false,
+    pettionUsedQty: "0",
+    riskRatio: "",
+    num: "",
+    tradeUnit: "1000",
+    riskQty: "30",
+    lastPrice: "13.45",
+    stockID: "2884"
+  },
+  {
+    loanTOValue: "60",
+    pettionUsedMoney: "0",
+    stockName: "玉山金",
+    ableLoanQty: "300",
+    is50: true,
+    pettionUsedQty: "0",
+    riskRatio: "",
+    num: "",
+    tradeUnit: "1000",
+    riskQty: "999",
+    lastPrice: "27.40",
+    stockID: "2230"
+  }
+
+]
+
 let userStockData = [
   {
     num: 2,
@@ -97,10 +157,29 @@ let userStockData = [
         ableLoanQty: "300000",
         custID: "4010-091000",
         transDate: "20211126",
-        stockID: "2885"
+        stockID: "1303"
+      },
+
+    ]
+  },
+  {
+    num: 2,
+    stocks: [
+      {
+        ableLoanQty: "500000",
+        custID: "4010-091001",
+        transDate: "20211126",
+        stockID: "2230"
+      },
+      {
+        ableLoanQty: "300000",
+        custID: "4010-091001",
+        transDate: "20211126",
+        stockID: "2884"
       }
     ]
   }
+
 
 ]
 
@@ -237,15 +316,15 @@ for (let a5 of acc_a5) {
 }
 
 //帳戶資料代入
-let acc_index = userAccData.findIndex(x => x.custID === login_user)
+// let acc_index = userAccData.findIndex(x => x.custID === login_user)
 // console.log(acc_index);
 
 if (window.location.pathname == '/acc_info.html') {
   let user_acc1 = document.getElementById('user-acc1');
   let user_acc2 = document.getElementById('user-acc2');
 
-  user_acc1.textContent = userAccData[acc_index].c1;
-  user_acc2.textContent = userAccData[acc_index].c2;
+  user_acc1.textContent = userAccData[user_index].c1;
+  user_acc2.textContent = userAccData[user_index].c2;
 
 }
 
@@ -256,4 +335,101 @@ let over_ioanNum = document.getElementById('ioanNum-over');
 if (window.location.pathname == '/acc_overioan.html') {
   over_ioanNum.innerText = s_ioanNum;
 
+  //使用者股票資料代入
+  
+  let stock_list = document.getElementById('stock-list');
+  let user_stock_arr = userStockData[user_index].stocks;
+  let stock_len = userStockData[user_index].num;
+  let stocklist_str = '';
+  // for (let i = 0; i < stock_len; i++) {  
+    for (let us_info in user_stock_arr) {
+      // console.log(user_stock_arr[us_info])
+      let stock_index = stockData.findIndex(x => x.stockID == user_stock_arr[us_info].stockID);
+      // console.log(stock_index)
+      
+      // 要插入的字串
+      let stocklist_content = `
+      <tr>
+      <td name="stock-id">${user_stock_arr[us_info].stockID}</td>
+      <td>${stockData[stock_index].stockName}</td>
+      <td name="stock-qty">${user_stock_arr[us_info].ableLoanQty / 1000}</td>
+      <td name="loan-val">${stockData[stock_index].loanTOValue}</td>
+      <td><input type="text" name="qty" class="border-0"></td>
+      </tr>
+      `;
+      stocklist_str += stocklist_content;
+      //擔保品張數
+      
+      // let loan_val = document.getElementsByName('loan-val');
+      
+      // let collaterals_qty = document.getElementsByName('qty');
+      // // console.log(collaterals_qty);
+      
+      // for(let col_qty of collaterals_qty){
+      //   console.log(parseInt(loan_val[us_info].textContent /100))
+      //   col_qty.addEventListener('input' , (e)=>{
+      //       col_qty[us_info].value = e.target.value;
+      //       // loan_quota.innerText = 
+      //     })
+      //     // loan_quota.innerText= 'aaaa' 
+      //     console.log(loan_quota.textContent);
+      // }
+      // let stocks_qty = document.getElementsByName('stock-qty');
+      // console.log(stocks_qty)
+      // collaterals_qty[0].addEventListener('input',function(event){
+      //   console.log("得到"+event.target.value);
+      // })
+   
+      
+      // collaterals_qty[collateral_index].addEventListener('change',()=>{
+      // loan_quota = parseInt(collaterals_qty[collateral_index].innerText) * (parseInt(loan_val[collateral_index].innerText) / 100)*stockData[stock_index].lastPrice
+      // })
+  }
+  stock_list.innerHTML = stocklist_str;
+  let qtys = document.getElementsByName('qty');
+  let stock_id = document.getElementsByName('stock-id');
+  let user_stockid_arr =[];
+  let lp_arr =[];
+  let lv_arr =[];
+  for (let i = 0; i < stock_len; i++){
+    let a = stock_id[i].innerText
+    user_stockid_arr.push(a);
+    let b =stockData.findIndex(x => x.stockID == user_stockid_arr[i]);
+    // console.log(b)
+    lp_arr.push(stockData[b].lastPrice);
+    lv_arr.push(stockData[b].loanTOValue);
+  }
+  console.log(user_stockid_arr.length);
+  console.log(lp_arr);
+  console.log(lv_arr);
+  
+  let qty_arr=[];
+  let loan_quota = document.getElementById('loan-quota');
+  let total = loan_quota.innerText;
+  let total_arr =[];
+  
+  total='';
+  // let stock_id_index = stock_id.findIndex(x => x.innerText);
+  // console.log(stock_id[stock_id_index].value);
+  let qty_arr_len = qty_arr.length;
+  qtys.forEach((e)=>{
+    e.addEventListener('change', ()=>{
+      e.innerText = e.value
+      console.log(e.value)
+      qty_arr.push(e.value)
+
+      console.log(qty_arr)
+      for(let i = 0 ; i<qty_arr_len;i++){
+        let aaa= lp_arr[i]*lv_arr[i]*qty_arr[i];
+        // console.log(aaa)
+        total_arr.push(aaa);
+        
+        console.log(qty_arr)
+        console.log(total_arr)
+      }
+    })
+  })
+  // }
+
+   
 }
