@@ -1,5 +1,5 @@
 ---
-title: Account information
+title: overLoan Check
 layout: ./app/layout.ejs
 engine: ejs
 current: index
@@ -31,23 +31,40 @@ current: index
                                 <td name="a5"></td>
                                 <td>2022/1/21</td>
                             </tr>
+
                         </tbody>
+                    </table>
+                    <table class="table table-bordered text-center">
+                        <h5>使用以下申請資料作為擔保品</h5>
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">股票代號</th>
+                                <th scope="col">股票名稱</th>
+                                <th scope="col">張數</th>
+                            </tr>
+                        </thead>
+                        <tbody class="user-loan-list">
+                        </tbody>
+                        <tr class="bg-light-pink">
+                            <td colspan="2">合計</td>
+                            <td class="product-total"></td>
+                        </tr>
                     </table>
                 </div>
                 <p class="card-text">借款結果請至借還款查詢，款項將撥至您的交割帳戶：<span id="user-acc1"></span></p>
                 <div class="text-center">
-                    <a href="./loan.html" class="btn btn-light border-dark text-center">回上一步</a>
-                    <button class="btn btn-success text-center accinfo-btn-submit">確認送出</a>
+                    <button class="btn btn-light border-dark text-center check-btn-back">想換擔保品</button>
+                    <button class="btn btn-success text-center check-btn-submit">確認送出</a>
 
                 </div>
             </div>
         </div>
     </section>
-    <section class="container">
-        <h3>分帳戶</h3>
+    <section class="container mb-5">
+        <h3>分戶帳</h3>
         <div class="card">
             <div class="card-header bg-white d-flex justify-content-end">
-                <button type="button" class="btn-close" id="acc2-btn-close" aria-label="Close"></button>
+                <button type="button" class="btn-close" aria-label="Close"></button>
             </div>
             <div class=" card-body">
                 <h5 class="card-title">請您確認以下申請資料</h5>
@@ -71,11 +88,28 @@ current: index
                             </tr>
                         </tbody>
                     </table>
+                    <table class="table table-bordered text-center">
+                        <h5>使用以下申請資料作為擔保品</h5>
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">股票代號</th>
+                                <th scope="col">股票名稱</th>
+                                <th scope="col">張數</th>
+                            </tr>
+                        </thead>
+                        <tbody class="user-loan-list">
+                        </tbody>
+                        <tr class="bg-light-pink">
+                            <td colspan="2">合計</td>
+                            <td class="product-total"></td>
+                        </tr>
+                    </table>
                 </div>
-                <p class="card-text">借款結果請至借還款查詢，款項將撥至您的分帳戶：<span id="user-acc2"></span></p>
+                <p class="card-text">借款結果請至借還款查詢，款項將撥至您的分戶帳：<span id="user-acc2"></span></p>
                 <div class="text-center">
-                    <a href="./loan.html" class="btn btn-light border-dark text-center">回上一步</a>
-                    <button class="btn btn-success text-center accinfo-btn-submit">確認送出</a>
+                    <button class="btn btn-light border-dark text-center check-btn-back">想換擔保品</button>
+                    <button class="btn btn-success text-center check-btn-submit">確認送出</a>
+
                 </div>
             </div>
         </div>
@@ -91,15 +125,17 @@ current: index
             accinfo_close[i].parentElement.parentElement.parentElement.classList.add('close-acc');
         }
     }
-    //submit accinfo
-    let accinfo_submit = document.getElementsByClassName('accinfo-btn-submit');
-    for (let index in accinfo_submit) {
-        accinfo_submit[index].onclick = () => {
-            // localStorage.clear();
-            sessionStorage.clear();
-            window.location.href = 'index.html';
+   
+    // submit user check overloan
+    let check_submit = document.getElementsByClassName('check-btn-submit');
 
+    for (let i in check_submit) {
+        check_submit[i].onclick = () => {
+            sessionStorage.clear();
+            // localStorage.clear();
+            alert('借款完成')
+            window.location.href = '/index.html';
         }
     }
-  
+
 </script>

@@ -1,5 +1,5 @@
 ---
-title: Ioan
+title: Loan
 layout: ./app/layout.ejs
 engine: ejs
 current: index
@@ -8,7 +8,7 @@ current: index
 <nav class="mb-4">
     <ul class="nav justify-content-center">
         <li class="nav-item">
-            <a href="#" class="nav-link border border-white text-black bg-secondary fs-3 px-4  active-ioan">借款申請</a>
+            <a href="#" class="nav-link border border-white text-black bg-secondary fs-3 px-4  active-loan">借款申請</a>
             <!-- js操控active -->
         </li>
         <li class="nav-item">
@@ -115,7 +115,7 @@ current: index
                         <option value="其他理財">其他理財</option>
                         <option value="消費性支出">消費性支出</option>
                         <option value="資金週轉">資金週轉</option>
-                        <option value="r6">其他目的<span id="ioan-input">:請輸入<input type="text"></span>
+                        <option value="r6">其他目的<span id="loan-input">:請輸入<input type="text"></span>
                         </option>
                     </select>
                 </div>
@@ -123,10 +123,10 @@ current: index
         </div>
         <div class="row row-cols-auto offset-6">
             <div>
-                <input type="button" value="清除" class="btn btn-light border-dark" id="ioan-btn-clean">
+                <input type="button" value="清除" class="btn btn-light border-dark" id="loan-btn-clean">
             </div>
             <div>
-                <input type="button" value="申請"class="btn btn-success" id="ioan-btn-submit">
+                <input type="button" value="申請"class="btn btn-success" id="loan-btn-submit">
             </div>
         </div>
     </form>
