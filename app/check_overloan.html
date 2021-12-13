@@ -125,7 +125,16 @@ current: index
             accinfo_close[i].parentElement.parentElement.parentElement.classList.add('close-acc');
         }
     }
-   
+   //    // back to change loan
+   let check_back = document.getElementsByClassName('check-btn-back');
+   sessionStorage.getItem('userLoan');
+;    for (let i in check_back){
+       check_back[i].onclick = () => {
+           sessionStorage.removeItem('userLoan')
+           // localStorage.removeItem('userLoan')
+           window.location.href='/acc_overloan.html'
+       }
+   }
     // submit user check overloan
     let check_submit = document.getElementsByClassName('check-btn-submit');
 

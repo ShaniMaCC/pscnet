@@ -340,7 +340,7 @@ if (window.location.pathname == '/acc_info.html' || window.location.pathname == 
 let over_ioanNum = document.getElementById('ioanNum-over');
 // console.log(over_ioanNum.innerHTML);
 if (window.location.pathname == '/acc_overloan.html') {
-  over_ioanNum.innerText = s_ioanNum;
+  over_ioanNum.textContent = s_ioanNum;
 
   //使用者股票資料代入
 
@@ -369,7 +369,7 @@ if (window.location.pathname == '/acc_overloan.html') {
 
   }
   stock_list.innerHTML = stocklist_str;
-  
+
   //擔保品張數
   let qtys = document.getElementsByName('qty');
   let stock_id = document.getElementsByName('stock-id');
@@ -381,10 +381,10 @@ if (window.location.pathname == '/acc_overloan.html') {
   let lv_arr = [];
   let ln_arr = [];
   for (let i = 0; i < stock_len; i++) {
-    let a = stock_id[i].innerText
+    let a = stock_id[i].textContent
     user_stockid_arr.push(a);
     let b = stockData.findIndex(x => x.stockID == user_stockid_arr[i]);
-    let c = stock_ableqty[i].innerText
+    let c = stock_ableqty[i].textContent
     user_stockableqty_arr.push(c);
 
     // console.log(b)
@@ -408,7 +408,7 @@ if (window.location.pathname == '/acc_overloan.html') {
       // console.log(typeof qty_arr[qtynodes_arr.indexOf(e)]);
       let user_stockNum = user_stockableqty_arr[qtynodes_arr.indexOf(e)];
       // console.log(typeof user_stockNum);
-      if (parseInt(user_stockNum)< parseInt(qty_arr[qtynodes_arr.indexOf(e)])) {
+      if (parseInt(user_stockNum) < parseInt(qty_arr[qtynodes_arr.indexOf(e)])) {
         console.log(user_stockNum - qty_arr[qtynodes_arr.indexOf(e)])
         alert('超出庫存張數，請重新填寫')
         e.value = '';
@@ -420,121 +420,109 @@ if (window.location.pathname == '/acc_overloan.html') {
         let loan_quota_total = 0;
         for (let i = 0; i < qty_arr.length; i++) {
 
-          let ioan_sum = (lp_arr[i]) * (lv_arr[i]) / 100 * (qty_arr[i])*1000;
+          let ioan_sum = (lp_arr[i]) * (lv_arr[i]) / 100 * (qty_arr[i]) * 1000;
           loan_quota_total = loan_quota_total + ioan_sum;
-          loan_quota.innerText = Math.round(loan_quota_total);
-          let prduct_list  = {stockId:user_stockid_arr,stockName:ln_arr,productQty:qty_arr}
+          loan_quota.textContent = Math.round(loan_quota_total);
+          let prduct_list = { stockId: user_stockid_arr, stockName: ln_arr, productQty: qty_arr }
           // localStorage.setItem("userLoan",JSON.stringify(prduct_list));
-          sessionStorage.setItem("userLoan",JSON.stringify(prduct_list));
+          sessionStorage.setItem("userLoan", JSON.stringify(prduct_list));
         }
-        // console.log(loan_quota.innerText)
-        
+        // console.log(loan_quota.textContent)
+
         // localStorage.setItem("loan_quota_total", loan_quota_total);
         sessionStorage.setItem("loan_quota_total", loan_quota_total);
       }
-      
+
     })
-    
+
   })
-  let loan_quota_total = sessionStorage.getItem('loan_quota_total');
-  let ioanNum = sessionStorage.getItem('ioanNum')
   // let loan_quota_total = localStorage.getItem('loan_quota_total');
   // let ioanNum = localStorage.getItem('ioanNum')
   // console.log(s_ioanNum);
-  console.log(loan_quota_total);
   // console.log(loan_quota_total < s_ioanNum)
-  console.log((loan_quota.textContent));
+  // console.log((loan_quota.textContent));
   overloan_submit.addEventListener("click", () => {
-    console.log(loan_quota_total-parseInt(ioanNum));
-    console.log(parseInt(ioanNum));
-    console.log(parseInt(s_ioanNum));
-    if (loan_quota_total - parseInt(ioanNum) >= 0) {
+    let loanQuota_total = sessionStorage.getItem('loan_quota_total');
+    let ioanNum = sessionStorage.getItem('ioanNum')
+    // console.log(loanQuota_total);
+    // console.log(loanQuota_total-parseInt(ioanNum));
+    // console.log(parseInt(ioanNum));
+    // console.log(parseInt(s_ioanNum));
+    if (loanQuota_total - parseInt(ioanNum) >= 0) {
       window.location.href = 'check_overloan.html'
     } else {
-      console.log(loan_quota_total - s_ioanNum)
+      console.log(loanQuota_total - parseInt(ioanNum))
       alert('融通額度不足');
     }
 
   })
   // }
 
-}  
-if (window.location.pathname =='/check_overloan.html' || window.location.pathname =='/acc_overloan.html'){
+}
+if (window.location.pathname == '/check_overloan.html' || window.location.pathname == '/acc_overloan.html') {
   // let user_loan = JSON.parse(localStorage.getItem("userLoan"));
   let user_loan = JSON.parse(sessionStorage.getItem("userLoan"));
-  
   let user_loan_list = document.getElementsByClassName('user-loan-list');
-  let count_empty_qty = user_loan.productQty.filter(x => x=='' || x=='0' || x === 0).length
-  let count_empty_index = user_loan.productQty.filter(x => x=='' || x=='0' || x === 0)
-  console.log(count_empty_index);
-  console.log(count_empty_index.indexOf(0,'0',''));
-  let arrrr = [0,'aa','',22,'0'];
-  console.log(arrrr.filter(x => x==0 || x=='0' || x==''));
-  let loanlist_str ='';
-  // console.log(user_loan.productQty.length)
-  // console.log(count_empty_qty);
-  
-  
-    if(count_empty_qty == 0){
-      for(let i = 0 ; i < user_loan.productQty.length ; i++){
-        
-        let loanlist_content = `
+  let count_empty_qty = user_loan.productQty.filter(x => x==='' || x=='0' || x === 0 || x==null).length
+  let count_empty_index = user_loan.productQty.filter(x => x==='' || x=='0' || x === 0 || x ==null);
+  user_loan.productQty[count_empty_index] = 0
+  console.log(user_loan.productQty);
+
+
+  let loanlist_str = '';
+  if (count_empty_qty == 0) {
+    for (let i = 0; i < user_loan.productQty.length; i++) {
+
+      let loanlist_content = `
         <tr>
         <td>${user_loan.stockId[i]}</td>
         <td>${user_loan.stockName[i]}</td>
         <td class="qty-num">${user_loan.productQty[i]}</td>
         </tr>
         `;
-        loanlist_str += loanlist_content
-        
-      }
-    
-    }else{
-      for(let i = 0 ; i < user_loan.productQty.length - count_empty_qty ; i++){
-        
-        let loanlist_content = `
-        <tr>
-        <td>${user_loan.stockId[i]}</td>
-        <td>${user_loan.stockName[i]}</td>
-        <td class="qty-num">${user_loan.productQty[i]}</td>
-        </tr>
-        `;
-        loanlist_str += loanlist_content
-        
-      }
+      loanlist_str += loanlist_content
+
     }
-    
-    
-    
-  }  
-  
-   // back to change loan
-   let check_back = document.getElementsByClassName('check-btn-back');
-   sessionStorage.getItem('userLoan');
-;    for (let i in check_back){
-       check_back[i].onclick = () => {
-           sessionStorage.removeItem('userLoan')
-           // localStorage.removeItem('userLoan')
-           window.location.href='/acc_overloan.html'
-       }
-   }
-  // // console.log(loanlist_str);
-  // for ( let el of user_loan_list){
-  //   el.innerHTML = loanlist_str
+
+  } else {
+    for (let i = 0; i < user_loan.productQty.length - count_empty_qty; i++) {
+
+      let loanlist_content = `
+        <tr>
+        <td>${user_loan.stockId[i]}</td>
+        <td>${user_loan.stockName[i]}</td>
+        <td class="qty-num">${user_loan.productQty[i]}</td>
+        </tr>
+        `;
+      loanlist_str += loanlist_content
+
+    }
+  }
+
+
+
+  // }  
+
+  // if (window.location.pathname == '/check_overloan.html'){
+  console.log(loanlist_str);
+  for (let el of user_loan_list) {
+    el.innerHTML = loanlist_str
+  }
+  // user_loan_list[0].innerHTML = loanlist_str
+  let qtyNum = document.getElementsByClassName('qty-num');
+  let qtys_sum = document.getElementsByClassName('product-total');
+  // console.log(user_loan.productQty.length);
+  let total_data = 0
+  for (let i = 0; i < user_loan.productQty.length; i++) {
+    total_data = total_data + parseInt(qtyNum[i].textContent);
+    // console.log(total_data)
+    // qtyNum[i]++
+    for (let c of qtys_sum) {
+      c.textContent = total_data;
+    }
+  }
+  // for(let num in qtyNum){
+  //   console.log(num)
   // }
-  // // user_loan_list[0].innerHTML = loanlist_str
-  // let qtyNum = document.getElementsByClassName('qty-num');
-  // let qtys_sum = document.getElementsByClassName('product-total');
-  // // console.log(user_loan.productQty.length);
-  // let total_data = 0
-  // for(let i = 0 ; i < user_loan.productQty.length ; i++){
-  //   total_data = total_data + parseInt(qtyNum[i].innerText);
-  //   // console.log(total_data)
-  //   // qtyNum[i]++
-  //   for(let c of qtys_sum){
-  //     c.innerText = total_data;
-  //   }
-  // }
-  // // for(let num in qtyNum){
-  // //   console.log(num)
-  // // }
+
+}
