@@ -25,9 +25,9 @@ current: index
                         </thead>
                         <tbody>
                             <tr>
-                                <td name="acc-ioanNum">
+                                <td name="acc-loanNum">
                                     </th>
-                                <td name="acc-ioanReason"></td>
+                                <td name="acc-loanReason"></td>
                                 <td name="a5"></td>
                                 <td>2022/1/21</td>
                             </tr>
@@ -80,9 +80,9 @@ current: index
                         </thead>
                         <tbody>
                             <tr>
-                                <td name="acc-ioanNum">
+                                <td name="acc-loanNum">
                                     </th>
-                                <td name="acc-ioanReason"></td>
+                                <td name="acc-loanReason"></td>
                                 <td name="a5"></td>
                                 <td>2022/1/21</td>
                             </tr>
@@ -131,7 +131,6 @@ current: index
 ;    for (let i in check_back){
        check_back[i].onclick = () => {
            sessionStorage.removeItem('userLoan')
-           // localStorage.removeItem('userLoan')
            window.location.href='/acc_overloan.html'
        }
    }
@@ -141,7 +140,6 @@ current: index
     for (let i in check_submit) {
         check_submit[i].onclick = () => {
             sessionStorage.clear();
-            // localStorage.clear();
             alert('借款完成')
             window.location.href = '/index.html';
         }

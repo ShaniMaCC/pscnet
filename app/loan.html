@@ -96,9 +96,9 @@ current: index
         <div class="row">
             <div class="offset-2 col-10 ">
                 <div class="mb-2 row">
-                    <label for="ioanNum" class="col-4 col-sm-3 col-form-label text-center bg-success">借款金額</label>
+                    <label for="loanNum" class="col-4 col-sm-3 col-form-label text-center bg-success">借款金額</label>
                     <div class="col-6 col-sm-5">
-                        <input type="text" class="form-control bg-success" id="ioanNum" name="ioanNum">
+                        <input type="text" class="form-control bg-success" id="loanNum" name="loanNum">
                     </div>
                     <p class="form-text offset-4 offset-sm-3 col-8">最低1萬，單筆上限50萬，單日上限200萬，最小單位為仟元</p>
                 </div>
@@ -108,14 +108,14 @@ current: index
         <div class="row mb-4">
             <div class="offset-2 col-10 ">
                 <div class="mb-2 row">
-                    <label for="ioanReason" class="col-4 col-sm-3 col-form-label text-center bg-success">借款目的</label>
-                    <select class="col-6 col-sm-5 col-form-select bg-success ms-3" id="ioanReason" name="ioanReason">
+                    <label for="loanReason" class="col-4 col-sm-3 col-form-label text-center bg-success">借款目的</label>
+                    <select class="col-4 col-form-select bg-success ms-3" id="loanReason" name="loanReason">
                         <option value="投資上市櫃有價證券" selected>投資上市櫃有價證券</option>
                         <option value="不動產交易">不動產交易</option>
                         <option value="其他理財">其他理財</option>
                         <option value="消費性支出">消費性支出</option>
                         <option value="資金週轉">資金週轉</option>
-                        <option value="r6">其他目的<span id="loan-input">:請輸入<input type="text"></span>
+                        <option value="r6">其他目的<input id="loan-input" type="text" class="d-none" placeholder="請輸入...">
                         </option>
                     </select>
                 </div>
@@ -131,4 +131,18 @@ current: index
         </div>
     </form>
 </main>
-    
+
+<script>
+    let loanReason_select = document.getElementById('loanReason');
+    let loanReason_input = document.getElementById('loan-input');
+    loanReason_select.addEventListener('change',()=>{
+        if (loanReason_select.selectedIndex === 5){
+            loanReason_input.setAttribute('class','d-block col-4')
+        }else{
+            loanReason_input.setAttribute('class','d-none')
+        }
+
+    });
+  
+
+</script>

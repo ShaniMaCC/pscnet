@@ -2,23 +2,35 @@
 
 
 
-// const userData ='https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=30&$format=JSON';
+// const userDataUrl ='http://10.107.7.26:8080/SecuredLoanWeb/base_data?kind=base_data&custID=4010-091001';
+// let userData = [];
+// axios.get(userDataUrl)
+// .then(function(response){
 
-// axios.get(userData).then(function(response){
-
-//   console.log(response.data);
-//   userData = response.data.data;
 //   render();
+//   userData.push(response.data);
 // })
+// console.log(userData);
 
 // try {
-//   fetch('http://sloan.syspower.com.tw/SecuredLoan/base_data?kind=base_data&custID=4010-091000')
+//   fetch('http://10.107.7.26:8080/SecuredLoanWeb/base_data?kind=base_data&custID=4010-091001')
 // } catch (err) {
 //   console.error(err);
 // }
 
+// const userDataUrl ='http://10.107.7.26:8080/SecuredLoanWeb/base_data?kind=base_data&custID=4010-091001';
 
+// let userData=[]
+// axios.get(userDataUrl)
+// .then(function(response){
 
+//   console.log(response.data);
+//   b = response.data;
+//   render();
+//   return b;
+// })
+// userData.push(b);    
+// a[0] === b;
 // const userAccData ='http://sloan.syspower.com.tw/SecuredLoan/base_data?kind=acc_data&custID=4010-091000';
 
 // axios.get(userAccData).then(function(response){
@@ -32,7 +44,7 @@
 //   $("#msg").html('新增中...');
 
 //   $.ajax({//http://localhost:8080/SecuredLoanWeb/loanservlet ?username=05067113test&password=12345&dstaddr=0937205071&smbody=haha
-//     url: 'http://sloan.syspower.com.tw/SecuredLoan/base_data',
+//     url: 'http://10.107.7.26:8080/SecuredLoanWeb',
 //     type: 'post',
 //     async: false,
 //     data: { kind: 'base_data', custID: '4010-091000' },
@@ -43,29 +55,29 @@
 //       console.log('errors' + JSON.stringify(rtn));
 //     }
 //   })
-
 // }
-let userData = [
-  {
-    a1: "2000000",
-    a2: "1900000",
-    a3: "100000",
-    a4: "184.21",
-    a5: "3.00",
-    custID: "4010-091000",
-    name: "王大明"
-  },
-  {
-    a1: "3000000",
-    a2: "2500000",
-    a3: "500000",
-    a4: "174.21",
-    a5: "2.00",
-    custID: "4010-091001",
-    name: "王曉明"
-  }
+// }
+// let userData = [
+//   {
+//     a1: "2000000",
+//     a2: "1900000",
+//     a3: "100000",
+//     a4: "184.21",
+//     a5: "3.00",
+//     custID: "4010-091000",
+//     name: "王大明"
+//   },
+//   {
+//     a1: "3000000",
+//     a2: "2500000",
+//     a3: "500000",
+//     a4: "174.21",
+//     a5: "2.00",
+//     custID: "4010-091001",
+//     name: "王曉明"
+//   }
 
-];
+// ];
 
 let userAccData = [
   {
@@ -184,41 +196,43 @@ let userStockData = [
 ]
 
 
-//登入
-let login_btn = document.getElementById('user-login');
-if (login_btn) {
-  login_btn.addEventListener('click', userLogin, false);
-}
-function userLogin() {
+  //登入
+  let login_btn = document.getElementById('user-login');
   let userAcc = document.getElementById('user-account');
   let userPsd = document.getElementById('user-password');
-  let userId = userData.findIndex(x => x.custID === userAcc.value);
-  //   let userId = userData.some(x => x.custID == userAcc.value);
-
-  if (userId >= 0) {
-    // let user = userData[userId].custID;
-    // localStorage.setItem("userid", user);
-    let user = userData[userId].custID;
-    sessionStorage.setItem("userid", user);
-    // console.log(user)
-    if (userPsd.value.length >= 4) {
-      window.location.href = 'loan.html';
-    } else {
-      userPsd.value = "";
-      alert('密碼重新輸入')
-    }
-    return user;
-  } else {
-    userAcc.value = "";
-    userPsd.value = "";
-    alert('請重新輸入')
+  if(login_btn){
+    userPsd.addEventListener('keypress',function(e){
+      if(e.key=='Enter'){
+        userLogin();
+      }
+    })
   }
-}
-//透過localstorage存的帳號找到是userData哪筆資料(index)
-// let login_user = localStorage.getItem("userid");
-let login_user = sessionStorage.getItem("userid");
-let user_index = userData.findIndex(x => x.custID === login_user)
-// console.log(user_index);
+  if (login_btn) {
+    login_btn.addEventListener('click', userLogin, false);
+  }
+  function userLogin() {
+    let userId = userData.findIndex(x => x.custID === userAcc.value);
+  
+    if (userId >= 0) {
+      let user = userData[userId].custID;
+      sessionStorage.setItem("userid", user);
+      if (userPsd.value.length >= 4) {
+        window.location.href = 'loan.html';
+      } else {
+        userPsd.value = "";
+        alert('密碼重新輸入')
+      }
+      return user;
+    } else {
+      userAcc.value = "";
+      userPsd.value = "";
+      alert('請重新輸入')
+    }
+  }
+  //透過localstorage存的帳號找到是userData哪筆資料(index)
+  let login_user = sessionStorage.getItem("userid");
+  let user_index = userData.findIndex(x => x.custID === login_user)
+
 //借款申請使用者資料代入
 if (window.location.pathname == '/loan.html') {
 
@@ -253,78 +267,69 @@ if (window.location.pathname == '/loan.html') {
   }
 
   //借款金額and目的設定
-  let ioanNum = document.getElementById('ioanNum');
-  // console.log(parseInt(ioanNum));
-  let ioanReason = document.getElementById('ioanReason');
-  // console.log(ioanReason) r1
+  let loanNum = document.getElementById('loanNum');
+  let loanReason = document.getElementById('loanReason');
   let clean_btn = document.getElementById('loan-btn-clean');
-  let ioan_btn = document.getElementById('loan-btn-submit');
-
+  let loan_btn = document.getElementById('loan-btn-submit');
+ 
+   
   //清除按鈕設定
   if (clean_btn) {
     clean_btn.addEventListener('click', function () {
-      ioanNum.value = '';
-      ioanReason.selectedIndex = 0;
+      loanNum.value = '';
+      loanReason.selectedIndex = 0;
     })
   }
   //申請按鈕設定
-  if (ioan_btn) {
-    ioan_btn.addEventListener('click', ioanSubmit, false);
+  if (loan_btn) {
+    loan_btn.addEventListener('click', loanSubmit, false);
   }
-  // console.log(user_a1.value)
   //a1,a2從字串100,000,000轉回數字100000
   let data_a1 = parseInt(user_a1.value.split(',').join(''));
   let data_a2 = parseInt(user_a2.value.split(',').join(''));
-  // console.log(typeof data_a1)
-  // console.log(typeof data_ioan)
 
   //借款申請判斷
-  function ioanSubmit() {
-    let data_ioanNum = parseInt(ioanNum.value);
-    // localStorage.setItem("ioanNum", data_ioanNum.toString());
-    // localStorage.setItem("ioanReason", ioanReason.value)
-    sessionStorage.setItem("ioanNum", data_ioanNum.toString());
-    sessionStorage.setItem("ioanReason", ioanReason.value)
-    if (data_a1 - data_a2 >= data_ioanNum && data_ioanNum >= 10000) {
+  function loanSubmit() {
+     //借款目的為其他，值為輸入項內容
+     if(loanReason.value == 'r6'){
+      sessionStorage.setItem("loanReason", loanReason_input.value )  
+  }else{
+    sessionStorage.setItem("loanReason", loanReason.value)
+  }
+  
+    let data_loanNum = parseInt(loanNum.value);
+    sessionStorage.setItem("loanNum", data_loanNum.toString());
+    if (data_a1 - data_a2 >= data_loanNum && data_loanNum >= 10000) {
       window.location.href = 'acc_info.html';
-    } else if (data_a1 - data_a2 < data_ioanNum) {
-      // alert('超出可借金額');
+    } else if (data_a1 - data_a2 < data_loanNum) {
+      alert('超出可借金額需增加擔保品');
       window.location.href = 'acc_overloan.html';
     } else {
       alert('wrong')
-      ioanNum.value = '';
+      loanNum.value = '';
     }
   }
 
 }
 
 //表格內資料代入
-// let s_ioanNum = localStorage.getItem('ioanNum');
-// let s_ioanReason = localStorage.getItem('ioanReason');
-let s_ioanNum = sessionStorage.getItem('ioanNum');
-let s_ioanReason = sessionStorage.getItem('ioanReason');
-let acc_ioanNum = document.querySelectorAll('[name="acc-ioanNum"]');
-let acc_ioanReason = document.getElementsByName('acc-ioanReason');
+let s_loanNum = sessionStorage.getItem('loanNum');
+let s_loanReason = sessionStorage.getItem('loanReason');
+let acc_loanNum = document.querySelectorAll('[name="acc-loanNum"]');
+let acc_loanReason = document.getElementsByName('acc-loanReason');
 let acc_a5 = document.getElementsByName('a5');
 
-// console.log(acc_ioanNum);
-// console.log(acc_ioanReason);
-// console.log(acc_a5);
-// acc_ioanNum.textContent = s_ioanNum;
-
-for (let iN of acc_ioanNum) {
-  iN.textContent = s_ioanNum;
+for (let iN of acc_loanNum) {
+  iN.textContent = s_loanNum;
 }
-for (let iR of acc_ioanReason) {
-  iR.textContent = s_ioanReason;
+for (let iR of acc_loanReason) {
+  iR.textContent = s_loanReason;
 }
 for (let a5 of acc_a5) {
   a5.textContent = `${userData[user_index].a5}%`;
 }
 
 //帳戶資料代入
-// let acc_index = userAccData.findIndex(x => x.custID === login_user)
-// console.log(acc_index);
 
 if (window.location.pathname == '/acc_info.html' || window.location.pathname == '/check_overloan.html') {
   let user_acc1 = document.getElementById('user-acc1');
@@ -337,10 +342,9 @@ if (window.location.pathname == '/acc_info.html' || window.location.pathname == 
 
 
 
-let over_ioanNum = document.getElementById('ioanNum-over');
-// console.log(over_ioanNum.innerHTML);
+let over_loanNum = document.getElementById('loanNum-over');
 if (window.location.pathname == '/acc_overloan.html') {
-  over_ioanNum.textContent = s_ioanNum;
+  over_loanNum.textContent = s_loanNum;
 
   //使用者股票資料代入
 
@@ -350,9 +354,7 @@ if (window.location.pathname == '/acc_overloan.html') {
   let stocklist_str = '';
   // for (let i = 0; i < stock_len; i++) {  
   for (let us_info in user_stock_arr) {
-    // console.log(user_stock_arr[us_info])
     let stock_index = stockData.findIndex(x => x.stockID == user_stock_arr[us_info].stockID);
-    // console.log(stock_index)
 
     // 要插入的字串
     let stocklist_content = `
@@ -365,7 +367,6 @@ if (window.location.pathname == '/acc_overloan.html') {
       </tr>
       `;
     stocklist_str += stocklist_content;
-    // console.log(us_info.length)
 
   }
   stock_list.innerHTML = stocklist_str;
@@ -377,8 +378,11 @@ if (window.location.pathname == '/acc_overloan.html') {
 
   let user_stockid_arr = [];
   let user_stockableqty_arr = [];
+  //lastprice array
   let lp_arr = [];
+  //loantovalue array
   let lv_arr = [];
+  //stockname array
   let ln_arr = [];
   for (let i = 0; i < stock_len; i++) {
     let a = stock_id[i].textContent
@@ -387,14 +391,10 @@ if (window.location.pathname == '/acc_overloan.html') {
     let c = stock_ableqty[i].textContent
     user_stockableqty_arr.push(c);
 
-    // console.log(b)
     lp_arr.push(stockData[b].lastPrice);
     lv_arr.push(stockData[b].loanTOValue);
     ln_arr.push(stockData[b].stockName);
   }
-  // console.log(user_stockid_arr.length);
-  // console.log(user_stockid_arr);
-  // console.log(user_stockableqty_arr);
   let qty_arr = [];
   for (let i = 0; i < qtys.length; i++) {
     qty_arr.push(0);
@@ -405,76 +405,59 @@ if (window.location.pathname == '/acc_overloan.html') {
     e.addEventListener('change', () => {
       const qtynodes_arr = Array.from(qtys);
       qty_arr[qtynodes_arr.indexOf(e)] = e.value;
-      // console.log(typeof qty_arr[qtynodes_arr.indexOf(e)]);
       let user_stockNum = user_stockableqty_arr[qtynodes_arr.indexOf(e)];
-      // console.log(typeof user_stockNum);
       if (parseInt(user_stockNum) < parseInt(qty_arr[qtynodes_arr.indexOf(e)])) {
         console.log(user_stockNum - qty_arr[qtynodes_arr.indexOf(e)])
         alert('超出庫存張數，請重新填寫')
         e.value = '';
       } else {
-        // console.log(lp_arr);
-        // console.log(lv_arr);
-        //  console.log(e.value);
-        // console.log(qty_arr)
         let loan_quota_total = 0;
         for (let i = 0; i < qty_arr.length; i++) {
 
-          let ioan_sum = (lp_arr[i]) * (lv_arr[i]) / 100 * (qty_arr[i]) * 1000;
-          loan_quota_total = loan_quota_total + ioan_sum;
+          let loan_sum = (lp_arr[i]) * (lv_arr[i]) / 100 * (qty_arr[i]) * 1000;
+          loan_quota_total = loan_quota_total + loan_sum;
           loan_quota.textContent = Math.round(loan_quota_total);
           let prduct_list = { stockId: user_stockid_arr, stockName: ln_arr, productQty: qty_arr }
-          // localStorage.setItem("userLoan",JSON.stringify(prduct_list));
+         
           sessionStorage.setItem("userLoan", JSON.stringify(prduct_list));
         }
-        // console.log(loan_quota.textContent)
-
-        // localStorage.setItem("loan_quota_total", loan_quota_total);
         sessionStorage.setItem("loan_quota_total", loan_quota_total);
       }
 
     })
 
   })
-  // let loan_quota_total = localStorage.getItem('loan_quota_total');
-  // let ioanNum = localStorage.getItem('ioanNum')
-  // console.log(s_ioanNum);
-  // console.log(loan_quota_total < s_ioanNum)
-  // console.log((loan_quota.textContent));
+
   overloan_submit.addEventListener("click", () => {
     let loanQuota_total = sessionStorage.getItem('loan_quota_total');
-    let ioanNum = sessionStorage.getItem('ioanNum')
-    // console.log(loanQuota_total);
-    // console.log(loanQuota_total-parseInt(ioanNum));
-    // console.log(parseInt(ioanNum));
-    // console.log(parseInt(s_ioanNum));
-    if (loanQuota_total - parseInt(ioanNum) >= 0) {
+    let loanNum = sessionStorage.getItem('loanNum')
+
+    if (loanQuota_total - parseInt(loanNum) >= 0) {
       window.location.href = 'check_overloan.html'
     } else {
-      console.log(loanQuota_total - parseInt(ioanNum))
+      console.log(loanQuota_total - parseInt(loanNum))
       alert('融通額度不足');
     }
 
   })
-  // }
 
 }
 if (window.location.pathname == '/check_overloan.html' || window.location.pathname == '/acc_overloan.html') {
-  // let user_loan = JSON.parse(localStorage.getItem("userLoan"));
   let user_loan = JSON.parse(sessionStorage.getItem("userLoan"));
   let user_loan_list = document.getElementsByClassName('user-loan-list');
-  let count_empty_qty = user_loan.productQty.filter(x => x==='' || x=='0' || x === 0 || x==null).length
-  let count_empty_index = user_loan.productQty.filter(x => x==='' || x=='0' || x === 0 || x ==null);
-  user_loan.productQty[count_empty_index] = 0
-  console.log(user_loan.productQty);
+  // let count_empty_qty = user_loan.productQty.filter(x => x==='' || x=='0' || x === 0 || x==null).length
+  let empty_arr = user_loan.productQty.filter(x => x==='' || x=='0' || x === 0 || x ==null);
+  // user_loan.productQty[count_empty_index] = 0
+  // console.log( count_empty_qty );
+  // console.log( count_empty_index );
 
 
   let loanlist_str = '';
-  if (count_empty_qty == 0) {
-    for (let i = 0; i < user_loan.productQty.length; i++) {
+  for (let i = 0; i < user_loan.productQty.length; i++) {
+    if (user_loan.productQty[i]===""|| user_loan.productQty[i]==="0"||user_loan.productQty[i]===0||user_loan.productQty[i]===null) {
 
       let loanlist_content = `
-        <tr>
+        <tr class="d-none">
         <td>${user_loan.stockId[i]}</td>
         <td>${user_loan.stockName[i]}</td>
         <td class="qty-num">${user_loan.productQty[i]}</td>
@@ -483,10 +466,7 @@ if (window.location.pathname == '/check_overloan.html' || window.location.pathna
       loanlist_str += loanlist_content
 
     }
-
-  } else {
-    for (let i = 0; i < user_loan.productQty.length - count_empty_qty; i++) {
-
+    else {
       let loanlist_content = `
         <tr>
         <td>${user_loan.stockId[i]}</td>
@@ -508,21 +488,14 @@ if (window.location.pathname == '/check_overloan.html' || window.location.pathna
   for (let el of user_loan_list) {
     el.innerHTML = loanlist_str
   }
-  // user_loan_list[0].innerHTML = loanlist_str
   let qtyNum = document.getElementsByClassName('qty-num');
   let qtys_sum = document.getElementsByClassName('product-total');
-  // console.log(user_loan.productQty.length);
   let total_data = 0
   for (let i = 0; i < user_loan.productQty.length; i++) {
     total_data = total_data + parseInt(qtyNum[i].textContent);
-    // console.log(total_data)
-    // qtyNum[i]++
     for (let c of qtys_sum) {
       c.textContent = total_data;
     }
   }
-  // for(let num in qtyNum){
-  //   console.log(num)
-  // }
 
 }
